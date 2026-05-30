@@ -13,12 +13,16 @@ def pi_naive(start, end, step):
 def create_steps(all_steps, n_procs):
 
     step_size = all_steps // n_procs
-    
-    if (all_steps % n_procs):
-        remain = all_steps % n_procs
+    remain = all_steps % n_procs
 
+    step_list = []
     for i in range(n_procs):
-        
+        start = step_size * i
+        end = step_size * (i+1) - 1
+        if (i == n_procs-1):
+            end += remain
+        step_list.append((start, end))
+    return step_list
 
 
 if __name__ == "__main__":
@@ -29,15 +33,11 @@ if __name__ == "__main__":
     sums = 0.0
     step = 1.0/num_steps
 
-    if (num_steps % n_procs):
-        real_step = num_steps//n_procs
-        resto = num_steps % n_procs
+    step_list = create_steps(num_steps, n_procs)
     
     procs = []
     for i in range(n_procs):
-        s = int((num_steps/n_procs) * i)
-        f = int((num_steps/n_procs) * (i+1))-1
-        procs.append(Process(target=pi_naive, args=(s,f,step)))
+        procs.append(Process(target=pi_naive, args=(step_list[i][0],step_list[i][1],step)))
 
     tic = time.time() # Tempo Inicial
 
