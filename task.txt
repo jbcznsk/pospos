@@ -1,0 +1,5 @@
+O projeto se chama pospos. Ele é o repositorio base do projeto final e agrega todas as ideias inicias para o tcc, no final sobrara apenas uma branch com a ideia escolhida.
+
+Aluno: Jorge Lucas Vicilli Jabczenski
+
+https://github.com/jbcznsk/pospos
